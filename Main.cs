@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 
-public class Main : MonoBehaviour
-{
+public class Main : MonoBehaviour {
+
     void Start()
     {
         InitGround();
@@ -25,14 +24,9 @@ public class Main : MonoBehaviour
         for (int i = 0; i < 100; i++) {
             GameObject agent = GameObject.CreatePrimitive(PrimitiveType.Capsule);
             agent.name = "Agent" + i;
-            agent.transform.localPosition = new Vector3(Rand(50), 0, Rand(50));
+            agent.transform.localPosition = new Vector3(Utils.RandomInt(50), 0, Utils.RandomInt(50));
             GameObject.Destroy(agent.GetComponent<Collider>());
             agent.GetComponent<Renderer>().material.color = Random.value < 0.5 ? Color.red : Color.blue;
         }
-    }
-
-    private int Rand(int max)
-    {
-        return Mathf.FloorToInt(Random.value * max);
     }
 }
