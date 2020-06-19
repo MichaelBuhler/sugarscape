@@ -65,4 +65,8 @@ public class Utils {
         }
     }
 
+    public static int RandomIntBetween (int min, int max) {
+        return RandomInt(max - min + 1) + min;
+    }
+
 }
