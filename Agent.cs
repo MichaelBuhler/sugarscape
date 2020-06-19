@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class Agent {
 
+    private static int NEXT_ID = 0;
+
     public int id;
 
     public int sugar;
@@ -13,8 +15,11 @@ public class Agent {
 
     public GameObject gameObject;
 
-    public Agent (int id) {
-        this.id = id;
+    public Agent () {
+        this.id = NEXT_ID++;
+        this.sugar = Utils.RandomIntBetween(Simulation.Parameters.Endowment.MIN, Simulation.Parameters.Endowment.MAX);
+        this.vision = Utils.RandomIntBetween(Simulation.Parameters.Vision.MIN, Simulation.Parameters.Vision.MAX);
+        this.metabolism = Utils.RandomIntBetween(Simulation.Parameters.Metabolism.MIN, Simulation.Parameters.Metabolism.MAX);
         InitGameObject();
     }
 
