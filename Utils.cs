@@ -1,4 +1,6 @@
 ﻿
+using System.Collections.Generic;
+
 using UnityEngine;
 
 public class Utils {
@@ -67,6 +69,19 @@ public class Utils {
 
     public static int RandomIntBetween (int min, int max) {
         return RandomInt(max - min + 1) + min;
+    }
+
+    public static List<T> Shuffle<T> (List<T> list) {
+        List<T> shuffled = new List<T>(list);
+        int n = list.Count;
+        while ( n > 1 ) {
+            n--;
+            int k = RandomInt(n + 1);
+            T item = shuffled[k];
+            shuffled[k] = shuffled[n];
+            shuffled[n] = item;
+        }
+        return shuffled;
     }
 
 }
