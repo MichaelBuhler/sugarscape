@@ -1,4 +1,6 @@
 ﻿
+using System.Collections.Generic;
+
 using UnityEngine;
 
 public class Location {
@@ -40,8 +42,67 @@ public class Location {
         this.west = west;
     }
 
+    public void Step () {
+        this.sugar = Mathf.Min(this.sugar + Simulation.Parameters.SUGAR_GROWTH_RATE, capacity);
+    }
+
     public void Render () {
         gameObject.transform.localScale = Mathf.Sqrt(sugar) * Vector3.one / 25;
+    }
+
+    public int Harvest () {
+        int sugar = this.sugar;
+        this.sugar = 0;
+        return sugar;
+    }
+
+    public List<List<Location>> GetAllLocationsInSight (int distance) {
+        List<List<Location>> allLocations = new List<List<Location>>();
+        allLocations.Add(GetNorthernLocations(distance));
+        allLocations.Add(GetSouthernLocations(distance));
+        allLocations.Add(GetEasternLocations(distance));
+        allLocations.Add(GetWesternLocations(distance));
+        return allLocations;
+    }
+
+    private List<Location> GetNorthernLocations (int distance) {
+        List<Location> locations = new List<Location>();
+        Location that = this;
+        do {
+            locations.Add(that.north);
+            that = that.north;
+        } while ( --distance > 0 );
+        return locations;
+    }
+
+    private List<Location> GetSouthernLocations (int distance) {
+        List<Location> locations = new List<Location>();
+        Location that = this;
+        do {
+            locations.Add(that.south);
+            that = that.south;
+        } while ( --distance > 0 );
+        return locations;
+    }
+
+    private List<Location> GetEasternLocations (int distance) {
+        List<Location> locations = new List<Location>();
+        Location that = this;
+        do {
+            locations.Add(that.east);
+            that = that.east;
+        } while ( --distance > 0 );
+        return locations;
+    }
+
+    private List<Location> GetWesternLocations (int distance) {
+        List<Location> locations = new List<Location>();
+        Location that = this;
+        do {
+            locations.Add(that.west);
+            that = that.west;
+        } while ( --distance > 0 );
+        return locations;
     }
 
     private void InitGameObject () {

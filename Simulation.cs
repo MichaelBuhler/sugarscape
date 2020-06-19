@@ -1,10 +1,14 @@
 ﻿
 using System.Collections.Generic;
 
+using UnityEngine;
+
 public class Simulation {
 
     public static class Parameters {
+        public static float STEPS_PER_SECOND = 4;
         public static int NUMBER_OF_AGENTS = 400;
+        public static int SUGAR_GROWTH_RATE = 1;
         public static class Endowment {
             public static int MIN = 20;
             public static int MAX = 40;
@@ -19,6 +23,8 @@ public class Simulation {
         }
     }
 
+    public static int STEPS { get; private set; } = 0;
+
     public static Environment environment = new Environment();
     public static List<Agent> agents = new List<Agent>();
 
@@ -32,10 +38,23 @@ public class Simulation {
         }
     }
 
+    public static void Step () {
+        foreach ( Agent agent in Utils.Shuffle(agents) ) {
+            if ( agent.isAlive ) {
+                agent.Step();
+            }
+        }
+        environment.Step();
+        STEPS++;
+    }
+
     public static void Render () {
         environment.Render();
         foreach ( Agent agent in agents ) {
-            agent.Render();
+            if ( agent.isAlive ) {
+                agent.Render();
+            }
         }
     }
+
 }  

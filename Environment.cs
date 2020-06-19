@@ -12,6 +12,14 @@ public class Environment {
         InitGameObject();
     }
 
+    public void Step () {
+        for ( int y = 0 ; y < locations.GetLength(0) ; y++ ) {
+            for ( int x = 0 ; x < locations.GetLength(1) ; x++ ) {
+                locations[y, x].Step();
+            }
+        }
+    }
+
     public void Render () {
         for ( int y = 0 ; y < locations.GetLength(0) ; y++ ) {
             for ( int x = 0 ; x < locations.GetLength(1) ; x++ ) {
@@ -40,6 +48,7 @@ public class Environment {
                 locations[y, x] = new Location(x, y, Utils.SUGAR_CAPACITIES[y, x]);
             }
         }
+
         for ( int y = 0 ; y < height ; y++ ) {
             for ( int x = 0 ; x < width ; x++ ) {
                 int up = y == 0 ? height - 1 : y - 1;
