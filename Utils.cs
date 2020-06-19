@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Utils {
 
-    public static int[,] twoPeaksSugarLevels = new int[,] {
+    public static int[,] SUGAR_CAPACITIES = new int[,] {
         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,3,2,2,2,2},
         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,2,2,2},
         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,2,2},
@@ -57,7 +57,12 @@ public class Utils {
     };
 
     public static int RandomInt (int max) {
-        return Mathf.FloorToInt(Random.value * max);
+        while ( true ) {
+            int num = Mathf.FloorToInt(Random.value * max);
+            if ( num != max ) {
+                return num;
+            }
+        }
     }
 
 }

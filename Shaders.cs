@@ -5,10 +5,10 @@ public class Shaders {
 
     public static class Legacy {
 
-        public static readonly Shader diffuse;
+        public static readonly Shader DIFFUSE;
 
         static Legacy () {
-            diffuse = Shader.Find("Legacy Shaders/Diffuse");
+            DIFFUSE = Shader.Find("Legacy Shaders/Diffuse");
         }
 
     }

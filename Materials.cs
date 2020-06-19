@@ -3,20 +3,26 @@ using UnityEngine;
 
 public class Materials {
 
-    public static readonly Material sugarscape;
+    public static readonly Material GROUND;
 
-    public static readonly Material male;
-    public static readonly Material female;
+    public static readonly Material SUGAR;
+
+    public static readonly Material MALE;
+    public static readonly Material FEMALE;
 
     static Materials () {
-        sugarscape = new Material(Shaders.Legacy.diffuse) {
+        GROUND = new Material(Shaders.Legacy.DIFFUSE) {
             color = Color.white
         };
 
-        male = new Material(Shaders.Legacy.diffuse) {
+        SUGAR = new Material(Shaders.Legacy.DIFFUSE) {
+            color = Color.yellow
+        };
+
+        MALE = new Material(Shaders.Legacy.DIFFUSE) {
             color = Color.red
         };
-        female = new Material(Shaders.Legacy.diffuse) {
+        FEMALE = new Material(Shaders.Legacy.DIFFUSE) {
             color = Color.blue
         };
     }
