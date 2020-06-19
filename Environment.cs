@@ -31,11 +31,27 @@ public class Environment {
 
     private void InitLocations () {
         locations = new Location[Utils.SUGAR_CAPACITIES.GetLength(0), Utils.SUGAR_CAPACITIES.GetLength(1)];
-        int width = 50;
-        int height = 50;
-        for ( int x = 0 ; x < width ; x++ ) {
-            for ( int y = 0 ; y < height ; y++ ) {
-                locations[x, y] = new Location(x, y, Utils.SUGAR_CAPACITIES[y, x]);
+
+        int height = locations.GetLength(0);
+        int width = locations.GetLength(1);
+
+        for ( int y = 0 ; y < height ; y++ ) {
+            for ( int x = 0 ; x < width; x++ ) {
+                locations[y, x] = new Location(x, y, Utils.SUGAR_CAPACITIES[y, x]);
+            }
+        }
+        for ( int y = 0 ; y < height ; y++ ) {
+            for ( int x = 0 ; x < width ; x++ ) {
+                int up = y == 0 ? height - 1 : y - 1;
+                int down = ( y + 1 ) % height;
+                int left = x == 0 ? width - 1 : x - 1;
+                int right = ( x + 1 ) % width;
+                locations[y, x].SetNeighbors(
+                    locations[up, x],
+                    locations[down, x],
+                    locations[y, right],
+                    locations[y, left]
+                );
             }
         }
     }

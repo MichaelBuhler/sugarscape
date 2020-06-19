@@ -8,6 +8,11 @@ public class Location {
     public readonly int capacity;
 
     public int sugar { get; private set; }
+    
+    public Location north { get; private set; }
+    public Location south { get; private set; }
+    public Location east { get; private set; }
+    public Location west { get; private set; }
 
     public GameObject gameObject;
 
@@ -17,8 +22,22 @@ public class Location {
         this.x = x;
         this.y = y;
         this.capacity = capacity;
+
         this.sugar = capacity;
+
         InitGameObject();
+    }
+
+    public void SetNeighbors (
+        Location north,
+        Location south,
+        Location east,
+        Location west
+    ) {
+        this.north = north;
+        this.south = south;
+        this.east = east;
+        this.west = west;
     }
 
     public void Render () {
