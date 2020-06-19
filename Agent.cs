@@ -32,6 +32,6 @@ public class Agent {
         Renderer renderer = gameObject.GetComponent<Renderer>();
         renderer.receiveShadows = false;
         renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-        renderer.sharedMaterial = Random.value < 0.5 ? Materials.MALE : Materials.FEMALE;
+        renderer.sharedMaterial = Materials.DEFAULT;
     }
 }
