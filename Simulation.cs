@@ -9,8 +9,8 @@ public class Simulation {
         public static int NUMBER_OF_AGENTS = 400;
         public static int SUGAR_GROWTH_RATE = 1;
         public static class Endowment {
-            public static int MIN = 20;
-            public static int MAX = 40;
+            public static int MIN = 50;
+            public static int MAX = 100;
         }
         public static class Vision {
             public static int MIN = 1;
