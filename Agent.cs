@@ -20,6 +20,7 @@ public class Agent {
     public readonly int vision;
     public readonly int metabolism;
     public readonly Sex sex;
+    public int age { get; private set; } = 0;
 
     public Location location;
 
@@ -42,6 +43,11 @@ public class Agent {
         this.Move();
         this.Harvest();
         this.Eat();
+        if ( sugar < 0 ) {
+            this.Die();
+        } else {
+            this.Age();
+        }
     }
 
     public void Render () {
@@ -70,14 +76,15 @@ public class Agent {
 
     private void Eat () {
         sugar -= metabolism;
-        if ( sugar < 0 ) {
-            this.Die();
-        }
     }
 
     private void Die () {
         isAlive = false;
         Object.Destroy(gameObject);
+    }
+
+    private void Age () {
+        this.age++;
     }
 
     private void InitGameObject () {
