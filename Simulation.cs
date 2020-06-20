@@ -25,18 +25,13 @@ public class Simulation {
 
     public static int CURRENT_STEP { get; private set; } = 0;
 
-    public static Environment environment = new Environment();
-    public static List<Agent> agents = new List<Agent>();
+    public static Environment environment;
+    public static List<Agent> agents;
 
     public static void Init () {
         CURRENT_STEP = 0;
-        for ( int i = 0 ; i < Parameters.NUMBER_OF_AGENTS ; i++ ) {
-            Agent agent = new Agent();
-            Location location = environment.GetUnoccupiedLocation();
-            agent.location = location;
-            location.agent = agent;
-            agents.Add(agent);
-        }
+        InitEnvironment();
+        InitAgents();
     }
 
     public static void Step () {
@@ -55,6 +50,29 @@ public class Simulation {
             if ( agent.isAlive ) {
                 agent.Render();
             }
+        }
+    }
+
+    private static void InitEnvironment () {
+        if ( environment != null ) {
+            environment.Destroy();
+        }
+        environment = new Environment();
+    }
+
+    private static void InitAgents () {
+        if ( agents != null ) {
+            foreach ( Agent agent in agents ) {
+                agent.Destroy();
+            }
+        }
+        agents = new List<Agent>();
+        for ( int i = 0 ; i < Parameters.NUMBER_OF_AGENTS ; i++ ) {
+            Agent agent = new Agent();
+            Location location = environment.GetUnoccupiedLocation();
+            agent.location = location;
+            location.agent = agent;
+            agents.Add(agent);
         }
     }
 
