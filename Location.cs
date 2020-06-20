@@ -60,6 +60,15 @@ public class Location {
         return sugar;
     }
 
+    public List<Location> GetNeighboringLocations () {
+        List<Location> locations = new List<Location>();
+        locations.Add(north);
+        locations.Add(south);
+        locations.Add(east);
+        locations.Add(west);
+        return locations;
+    }
+
     public List<List<Location>> GetAllLocationsInSight (int distance) {
         List<List<Location>> allLocations = new List<List<Location>>();
         allLocations.Add(GetNorthernLocations(distance));
