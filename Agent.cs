@@ -36,19 +36,19 @@ public class Agent {
     public GameObject gameObject;
 
     public Agent () {
-        this.id = NEXT_ID++;
-        this.endowment = Utils.RandomIntBetween(Simulation.Parameters.Endowment.MIN, Simulation.Parameters.Endowment.MAX);
-        this.sugar = this.endowment;
-        this.vision = Utils.RandomIntBetween(Simulation.Parameters.Vision.MIN, Simulation.Parameters.Vision.MAX);
-        this.metabolism = Utils.RandomIntBetween(Simulation.Parameters.Metabolism.MIN, Simulation.Parameters.Metabolism.MAX);
-        this.sex = Random.value < 0.5 ? Sex.MALE : Sex.FEMALE;
-        this.maximumAge = Utils.RandomIntBetween(Simulation.Parameters.Lifespan.MIN, Simulation.Parameters.Lifespan.MAX);
-        if ( this.sex == Sex.MALE ) {
-            this.minimumFertileAge = Utils.RandomIntBetween(Simulation.Parameters.Fertility.Male.Begin.MIN, Simulation.Parameters.Fertility.Male.Begin.MAX);
-            this.maximumFertileAge = Utils.RandomIntBetween(Simulation.Parameters.Fertility.Male.End.MIN, Simulation.Parameters.Fertility.Male.End.MAX);
+        id = NEXT_ID++;
+        endowment = Utils.RandomIntBetween(Simulation.Parameters.Endowment.MIN, Simulation.Parameters.Endowment.MAX);
+        sugar = endowment;
+        vision = Utils.RandomIntBetween(Simulation.Parameters.Vision.MIN, Simulation.Parameters.Vision.MAX);
+        metabolism = Utils.RandomIntBetween(Simulation.Parameters.Metabolism.MIN, Simulation.Parameters.Metabolism.MAX);
+        sex = Random.value < 0.5 ? Sex.MALE : Sex.FEMALE;
+        maximumAge = Utils.RandomIntBetween(Simulation.Parameters.Lifespan.MIN, Simulation.Parameters.Lifespan.MAX);
+        if ( sex == Sex.MALE ) {
+            minimumFertileAge = Utils.RandomIntBetween(Simulation.Parameters.Fertility.Male.Begin.MIN, Simulation.Parameters.Fertility.Male.Begin.MAX);
+            maximumFertileAge = Utils.RandomIntBetween(Simulation.Parameters.Fertility.Male.End.MIN, Simulation.Parameters.Fertility.Male.End.MAX);
         } else {
-            this.minimumFertileAge = Utils.RandomIntBetween(Simulation.Parameters.Fertility.Female.Begin.MIN, Simulation.Parameters.Fertility.Female.Begin.MAX);
-            this.maximumFertileAge = Utils.RandomIntBetween(Simulation.Parameters.Fertility.Female.End.MIN, Simulation.Parameters.Fertility.Female.End.MAX);
+            minimumFertileAge = Utils.RandomIntBetween(Simulation.Parameters.Fertility.Female.Begin.MIN, Simulation.Parameters.Fertility.Female.Begin.MAX);
+            maximumFertileAge = Utils.RandomIntBetween(Simulation.Parameters.Fertility.Female.End.MIN, Simulation.Parameters.Fertility.Female.End.MAX);
         }
         InitGameObject();
     }
@@ -58,24 +58,24 @@ public class Agent {
     }
 
     public void Step () {
-        this.Move();
-        this.Harvest();
-        this.Eat();
-        if ( sugar < 0 || this.age == this.maximumAge ) {
-            this.Die();
+        Move();
+        Harvest();
+        Eat();
+        if ( sugar < 0 || age == maximumAge ) {
+            Die();
         } else {
-            this.Age();
+            Age();
         }
     }
 
     public void Render () {
-        gameObject.transform.localPosition = new Vector3(this.location.y, 0, this.location.x);
+        gameObject.transform.localPosition = new Vector3(location.y, 0, location.x);
     }
 
     private void Move () {
-        Location next = this.location;
+        Location next = location;
 
-        foreach ( List<Location> locationsInDirection in Utils.Shuffle(this.location.GetAllLocationsInSight(this.vision)) ) {
+        foreach ( List<Location> locationsInDirection in Utils.Shuffle(location.GetAllLocationsInSight(vision)) ) {
             foreach ( Location potential in locationsInDirection ) {
                 if ( potential.agent == null && potential.sugar > next.sugar ) {
                     next = potential;
@@ -83,13 +83,13 @@ public class Agent {
             }
         }
 
-        this.location.agent = null;
-        this.location = next;
-        this.location.agent = this;
+        location.agent = null;
+        location = next;
+        location.agent = this;
     }
 
     private void Harvest () {
-        this.sugar += this.location.Harvest();
+        sugar += location.Harvest();
     }
 
     private void Eat () {
@@ -102,12 +102,12 @@ public class Agent {
     }
 
     private void Age () {
-        this.age++;
+        age++;
     }
 
     private void InitGameObject () {
         gameObject = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-        gameObject.name = "Agent" + this.id;
+        gameObject.name = "Agent" + id;
         gameObject.transform.localScale = 0.9f * Vector3.one;
 
         Object.Destroy(gameObject.GetComponent<Collider>());

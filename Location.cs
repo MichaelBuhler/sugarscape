@@ -25,7 +25,7 @@ public class Location {
         this.y = y;
         this.capacity = capacity;
 
-        this.sugar = capacity;
+        sugar = capacity;
 
         InitGameObject();
     }
@@ -47,7 +47,7 @@ public class Location {
     }
 
     public void Step () {
-        this.sugar = Mathf.Min(this.sugar + Simulation.Parameters.SUGAR_GROWTH_RATE, capacity);
+        sugar = Mathf.Min(sugar + Simulation.Parameters.SUGAR_GROWTH_RATE, capacity);
     }
 
     public void Render () {
