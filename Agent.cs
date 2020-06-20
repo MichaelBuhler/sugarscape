@@ -7,6 +7,11 @@ public class Agent {
 
     private static int NEXT_ID = 0;
 
+    public enum Sex {
+        MALE,
+        FEMALE
+    }
+
     public int id;
 
     public bool isAlive { get; private set; } = true;
@@ -14,6 +19,7 @@ public class Agent {
     public int sugar { get; private set; }
     public readonly int vision;
     public readonly int metabolism;
+    public readonly Sex sex;
 
     public Location location;
 
@@ -24,6 +30,7 @@ public class Agent {
         this.sugar = Utils.RandomIntBetween(Simulation.Parameters.Endowment.MIN, Simulation.Parameters.Endowment.MAX);
         this.vision = Utils.RandomIntBetween(Simulation.Parameters.Vision.MIN, Simulation.Parameters.Vision.MAX);
         this.metabolism = Utils.RandomIntBetween(Simulation.Parameters.Metabolism.MIN, Simulation.Parameters.Metabolism.MAX);
+        this.sex = Random.value < 0.5 ? Sex.MALE : Sex.FEMALE;
         InitGameObject();
     }
 
