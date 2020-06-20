@@ -24,6 +24,28 @@ public class Simulation {
             public static int MIN = 60;
             public static int MAX = 100;
         }
+        public static class Fertility {
+            public static class Male {
+                public static class Begin {
+                    public static int MIN = 12;
+                    public static int MAX = 15;
+                }
+                public static class End {
+                    public static int MIN = 50;
+                    public static int MAX = 60;
+                }
+            }
+            public static class Female {
+                public static class Begin {
+                    public static int MIN = 12;
+                    public static int MAX = 15;
+                }
+                public static class End {
+                    public static int MIN = 40;
+                    public static int MAX = 50;
+                }
+            }
+        }
     }
 
     public static int CURRENT_STEP { get; private set; } = 0;

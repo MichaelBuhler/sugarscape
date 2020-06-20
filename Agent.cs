@@ -23,6 +23,13 @@ public class Agent {
     public readonly Sex sex;
     public int age { get; private set; } = 0;
     public readonly int maximumAge;
+    public readonly int minimumFertileAge;
+    public readonly int maximumFertileAge;
+    public bool isFertile {
+        get {
+            return isAlive && age >= minimumFertileAge && age < maximumFertileAge && sugar >= endowment;
+        }
+    }
 
     public Location location;
 
@@ -36,6 +43,13 @@ public class Agent {
         this.metabolism = Utils.RandomIntBetween(Simulation.Parameters.Metabolism.MIN, Simulation.Parameters.Metabolism.MAX);
         this.sex = Random.value < 0.5 ? Sex.MALE : Sex.FEMALE;
         this.maximumAge = Utils.RandomIntBetween(Simulation.Parameters.Lifespan.MIN, Simulation.Parameters.Lifespan.MAX);
+        if ( this.sex == Sex.MALE ) {
+            this.minimumFertileAge = Utils.RandomIntBetween(Simulation.Parameters.Fertility.Male.Begin.MIN, Simulation.Parameters.Fertility.Male.Begin.MAX);
+            this.maximumFertileAge = Utils.RandomIntBetween(Simulation.Parameters.Fertility.Male.End.MIN, Simulation.Parameters.Fertility.Male.End.MAX);
+        } else {
+            this.minimumFertileAge = Utils.RandomIntBetween(Simulation.Parameters.Fertility.Female.Begin.MIN, Simulation.Parameters.Fertility.Female.Begin.MAX);
+            this.maximumFertileAge = Utils.RandomIntBetween(Simulation.Parameters.Fertility.Female.End.MIN, Simulation.Parameters.Fertility.Female.End.MAX);
+        }
         InitGameObject();
     }
 
