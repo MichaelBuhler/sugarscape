@@ -6,7 +6,6 @@ using UnityEngine;
 public class Simulation {
 
     public static class Parameters {
-        public static float STEPS_PER_SECOND = 4;
         public static int NUMBER_OF_AGENTS = 400;
         public static int SUGAR_GROWTH_RATE = 1;
         public static class Endowment {
