@@ -16,6 +16,7 @@ public class Agent {
 
     public bool isAlive { get; private set; } = true;
 
+    public readonly int endowment;
     public int sugar { get; private set; }
     public readonly int vision;
     public readonly int metabolism;
@@ -28,7 +29,8 @@ public class Agent {
 
     public Agent () {
         this.id = NEXT_ID++;
-        this.sugar = Utils.RandomIntBetween(Simulation.Parameters.Endowment.MIN, Simulation.Parameters.Endowment.MAX);
+        this.endowment = Utils.RandomIntBetween(Simulation.Parameters.Endowment.MIN, Simulation.Parameters.Endowment.MAX);
+        this.sugar = this.endowment;
         this.vision = Utils.RandomIntBetween(Simulation.Parameters.Vision.MIN, Simulation.Parameters.Vision.MAX);
         this.metabolism = Utils.RandomIntBetween(Simulation.Parameters.Metabolism.MIN, Simulation.Parameters.Metabolism.MAX);
         this.sex = Random.value < 0.5 ? Sex.MALE : Sex.FEMALE;
