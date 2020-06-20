@@ -23,12 +23,13 @@ public class Simulation {
         }
     }
 
-    public static int STEPS { get; private set; } = 0;
+    public static int CURRENT_STEP { get; private set; } = 0;
 
     public static Environment environment = new Environment();
     public static List<Agent> agents = new List<Agent>();
 
     public static void Init () {
+        CURRENT_STEP = 0;
         for ( int i = 0 ; i < Parameters.NUMBER_OF_AGENTS ; i++ ) {
             Agent agent = new Agent();
             Location location = environment.GetUnoccupiedLocation();
@@ -45,7 +46,7 @@ public class Simulation {
             }
         }
         environment.Step();
-        STEPS++;
+        CURRENT_STEP++;
     }
 
     public static void Render () {
