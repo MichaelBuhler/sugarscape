@@ -30,6 +30,10 @@ public class Location {
         InitGameObject();
     }
 
+    public void Destroy () {
+        Object.Destroy(gameObject);
+    }
+
     public void SetNeighbors (
         Location north,
         Location south,

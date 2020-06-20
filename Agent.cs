@@ -27,6 +27,10 @@ public class Agent {
         InitGameObject();
     }
 
+    public void Destroy () {
+        Object.Destroy(gameObject);
+    }
+
     public void Step () {
         this.Move();
         this.Harvest();
@@ -65,8 +69,8 @@ public class Agent {
     }
 
     private void Die () {
-        Object.Destroy(gameObject);
         isAlive = false;
+        Object.Destroy(gameObject);
     }
 
     private void InitGameObject () {

@@ -12,6 +12,15 @@ public class Environment {
         InitGameObject();
     }
 
+    public void Destroy () {
+        for ( int y = 0 ; y < locations.GetLength(0) ; y++ ) {
+            for ( int x = 0 ; x < locations.GetLength(1) ; x++ ) {
+                locations[y, x].Destroy();
+            }
+        }
+        Object.Destroy(gameObject);
+    }
+
     public void Step () {
         for ( int y = 0 ; y < locations.GetLength(0) ; y++ ) {
             for ( int x = 0 ; x < locations.GetLength(1) ; x++ ) {
