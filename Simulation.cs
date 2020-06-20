@@ -20,6 +20,10 @@ public class Simulation {
             public static int MIN = 1;
             public static int MAX = 4;
         }
+        public static class Lifespan {
+            public static int MIN = 60;
+            public static int MAX = 100;
+        }
     }
 
     public static int CURRENT_STEP { get; private set; } = 0;

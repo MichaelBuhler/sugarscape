@@ -22,6 +22,7 @@ public class Agent {
     public readonly int metabolism;
     public readonly Sex sex;
     public int age { get; private set; } = 0;
+    public readonly int maximumAge;
 
     public Location location;
 
@@ -34,6 +35,7 @@ public class Agent {
         this.vision = Utils.RandomIntBetween(Simulation.Parameters.Vision.MIN, Simulation.Parameters.Vision.MAX);
         this.metabolism = Utils.RandomIntBetween(Simulation.Parameters.Metabolism.MIN, Simulation.Parameters.Metabolism.MAX);
         this.sex = Random.value < 0.5 ? Sex.MALE : Sex.FEMALE;
+        this.maximumAge = Utils.RandomIntBetween(Simulation.Parameters.Lifespan.MIN, Simulation.Parameters.Lifespan.MAX);
         InitGameObject();
     }
 
@@ -45,7 +47,7 @@ public class Agent {
         this.Move();
         this.Harvest();
         this.Eat();
-        if ( sugar < 0 ) {
+        if ( sugar < 0 || this.age == this.maximumAge ) {
             this.Die();
         } else {
             this.Age();
