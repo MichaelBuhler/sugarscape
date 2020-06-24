@@ -34,6 +34,7 @@ public class Agent {
     public Location location;
 
     public GameObject gameObject;
+    public Renderer renderer;
 
     public Agent () : this(
         Utils.RandomIntBetween(Simulation.Parameters.Endowment.MIN, Simulation.Parameters.Endowment.MAX),
@@ -79,6 +80,14 @@ public class Agent {
 
     public void Render () {
         gameObject.transform.localPosition = new Vector3(location.y, 0, location.x);
+        switch ( State.COLORING_OPTION ) {
+            case State.ColoringOptions.DEFAULT:
+                renderer.sharedMaterial = Materials.DEFAULT;
+                break;
+            case State.ColoringOptions.BY_SEX:
+                renderer.sharedMaterial = sex == Sex.MALE ? Materials.MALE : Materials.FEMALE;
+                break;
+        }
     }
 
     public int ConsumeSugarRequiredToReproduce () {
@@ -160,10 +169,10 @@ public class Agent {
 
         Object.Destroy(gameObject.GetComponent<Collider>());
 
-        Renderer renderer = gameObject.GetComponent<Renderer>();
+        renderer = gameObject.GetComponent<Renderer>();
         renderer.receiveShadows = false;
         renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-        renderer.sharedMaterial = sex == Sex.MALE ? Materials.MALE : Materials.FEMALE;
+        renderer.sharedMaterial = Materials.DEFAULT;
     }
 
 }

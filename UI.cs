@@ -19,6 +19,20 @@ public class UI : MonoBehaviour {
         step.text = "Step: " + Simulation.CURRENT_STEP.ToString();
     }
 
+    public void ColorsDefaultToggled (bool value) {
+        if ( value ) {
+            State.COLORING_OPTION = State.ColoringOptions.DEFAULT;
+            Simulation.Render();
+        }
+    }
+
+    public void ColorsSexToggled (bool value) {
+        if ( value ) {
+            State.COLORING_OPTION = State.ColoringOptions.BY_SEX;
+            Simulation.Render();
+        }
+    }
+
     public void FasterButtonClicked () {
         State.STEPS_PER_SECOND = Mathf.Clamp(++State.STEPS_PER_SECOND, 1, 30);
     }
