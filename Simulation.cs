@@ -5,7 +5,7 @@ public class Simulation {
 
     public static class Parameters {
         public static int SUGAR_GROWTH_RATE = 1;
-        public static int NUMBER_OF_AGENTS = 400;
+        public static int INITIAL_NUMBER_OF_AGENTS = 400;
         public static class Endowment {
             public static int MIN = 50;
             public static int MAX = 100;
@@ -86,7 +86,7 @@ public class Simulation {
             }
         }
         agents = new List<Agent>();
-        for ( int i = 0 ; i < Parameters.NUMBER_OF_AGENTS ; i++ ) {
+        for ( int i = 0 ; i < Parameters.INITIAL_NUMBER_OF_AGENTS ; i++ ) {
             Agent agent = new Agent();
             Location location = environment.GetUnoccupiedLocation();
             agent.location = location;

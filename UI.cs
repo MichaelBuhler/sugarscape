@@ -11,6 +11,8 @@ public class UI : MonoBehaviour {
     public Text speed;
     public Text step;
 
+    public InputField numberField;
+
     private void Update () {
         growth.text = Simulation.Parameters.SUGAR_GROWTH_RATE.ToString();
         speed.text = State.STEPS_PER_SECOND.ToString();
@@ -35,6 +37,37 @@ public class UI : MonoBehaviour {
 
     public void MoreButtonClicked () {
         Simulation.Parameters.SUGAR_GROWTH_RATE = Mathf.Clamp(++Simulation.Parameters.SUGAR_GROWTH_RATE, 1, 4);
+    }
+
+    public void NumberFieldChanged (string value) {
+        if ( value.Length > 0 ) {
+            int num = int.Parse(value);
+            if ( num < 0 ) {
+                num = 0;
+            } else if ( num > 1000 ) {
+                num = 1000;
+            }
+            Simulation.Parameters.INITIAL_NUMBER_OF_AGENTS = num;
+            numberField.text = num.ToString();
+        } else {
+            Simulation.Parameters.INITIAL_NUMBER_OF_AGENTS = 0;
+        }
+    }
+
+    public void NumberFieldUnfocused (string value) {
+        if ( value.Length > 0 ) {
+            int num = int.Parse(value);
+            if ( num < 0 ) {
+                num = 0;
+            } else if ( num > 1000 ) {
+                num = 1000;
+            }
+            Simulation.Parameters.INITIAL_NUMBER_OF_AGENTS = num;
+            numberField.text = num.ToString();
+        } else {
+            Simulation.Parameters.INITIAL_NUMBER_OF_AGENTS = 0;
+            numberField.text = "0";
+        }
     }
 
     public void PlayButtonClicked () {
