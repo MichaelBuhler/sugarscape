@@ -60,10 +60,8 @@ public class Simulation {
     }
 
     public static void Step () {
-        foreach ( Agent agent in Utils.Shuffle(agents) ) {
-            if ( agent.isAlive ) {
-                agent.Step();
-            }
+        foreach ( Agent agent in Utils.Shuffle(agents.FindAll(x => x.isAlive))) {
+            agent.Step();
         }
         environment.Step();
         CURRENT_STEP++;
@@ -71,10 +69,8 @@ public class Simulation {
 
     public static void Render () {
         environment.Render();
-        foreach ( Agent agent in agents ) {
-            if ( agent.isAlive ) {
-                agent.Render();
-            }
+        foreach ( Agent agent in agents.FindAll(x => x.isAlive) ) {
+            agent.Render();
         }
     }
 
