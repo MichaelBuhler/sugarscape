@@ -35,12 +35,18 @@ public class Agent {
 
     public GameObject gameObject;
 
-    public Agent () {
+    public Agent () : this(
+        Utils.RandomIntBetween(Simulation.Parameters.Endowment.MIN, Simulation.Parameters.Endowment.MAX),
+        Utils.RandomIntBetween(Simulation.Parameters.Vision.MIN, Simulation.Parameters.Vision.MAX),
+        Utils.RandomIntBetween(Simulation.Parameters.Metabolism.MIN, Simulation.Parameters.Metabolism.MAX)
+    ) { }
+
+    public Agent (int endowment, int vision, int metabolism) {
         id = NEXT_ID++;
-        endowment = Utils.RandomIntBetween(Simulation.Parameters.Endowment.MIN, Simulation.Parameters.Endowment.MAX);
+        this.endowment = endowment;
         sugar = endowment;
-        vision = Utils.RandomIntBetween(Simulation.Parameters.Vision.MIN, Simulation.Parameters.Vision.MAX);
-        metabolism = Utils.RandomIntBetween(Simulation.Parameters.Metabolism.MIN, Simulation.Parameters.Metabolism.MAX);
+        this.vision = vision;
+        this.metabolism = metabolism;
         sex = Random.value < 0.5 ? Sex.MALE : Sex.FEMALE;
         maximumAge = Utils.RandomIntBetween(Simulation.Parameters.Lifespan.MIN, Simulation.Parameters.Lifespan.MAX);
         if ( sex == Sex.MALE ) {
@@ -61,6 +67,9 @@ public class Agent {
         Move();
         Harvest();
         Eat();
+        if ( isFertile ) {
+            Reproduce();
+        }
         if ( sugar < 0 || age == maximumAge ) {
             Die();
         } else {
@@ -70,6 +79,12 @@ public class Agent {
 
     public void Render () {
         gameObject.transform.localPosition = new Vector3(location.y, 0, location.x);
+    }
+
+    public int ConsumeSugarRequiredToReproduce () {
+        int required = Mathf.CeilToInt(endowment / 2f);
+        sugar -= required;
+        return required;
     }
 
     private void Move () {
@@ -94,6 +109,30 @@ public class Agent {
 
     private void Eat () {
         sugar -= metabolism;
+    }
+
+    private void Reproduce () {
+        List<Agent> oppositeSexNeighbors = GetNeighbors().FindAll(x => x.sex != sex);
+        foreach ( Agent neighbor in Utils.Shuffle(oppositeSexNeighbors) ) {
+            if ( neighbor.isFertile ) {
+                List<Location> potentialLocations = location.GetNeighboringLocations();
+                potentialLocations.AddRange(neighbor.location.GetNeighboringLocations());
+                potentialLocations = potentialLocations.FindAll(x => x.agent == null);
+                potentialLocations = Utils.Shuffle(potentialLocations);
+                if ( potentialLocations.Count > 0 ) {
+                    int endowment = ConsumeSugarRequiredToReproduce() + neighbor.ConsumeSugarRequiredToReproduce();
+                    Agent baby = new Agent(
+                        endowment,
+                        Random.value < 0.5 ? vision : neighbor.vision,
+                        Random.value < 0.5 ? metabolism : neighbor.metabolism
+                    );
+                    Simulation.agents.Add(baby);
+                    baby.location = potentialLocations[0];
+                    potentialLocations[0].agent = baby;
+                    baby.Render();
+                }
+            }
+        }
     }
 
     private void Die () {
