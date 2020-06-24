@@ -163,7 +163,7 @@ public class Agent {
         Renderer renderer = gameObject.GetComponent<Renderer>();
         renderer.receiveShadows = false;
         renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-        renderer.sharedMaterial = Materials.DEFAULT;
+        renderer.sharedMaterial = sex == Sex.MALE ? Materials.MALE : Materials.FEMALE;
     }
 
 }
