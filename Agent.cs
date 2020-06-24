@@ -105,6 +105,15 @@ public class Agent {
         age++;
     }
 
+    private List<Agent> GetNeighbors () {
+        List<Agent> neighbors = new List<Agent>();
+        neighbors.Add(location.north.agent);
+        neighbors.Add(location.south.agent);
+        neighbors.Add(location.east.agent);
+        neighbors.Add(location.west.agent);
+        return neighbors.FindAll(n => n != null);
+    }
+
     private void InitGameObject () {
         gameObject = GameObject.CreatePrimitive(PrimitiveType.Capsule);
         gameObject.name = "Agent" + id;
