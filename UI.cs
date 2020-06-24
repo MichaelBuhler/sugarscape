@@ -6,10 +6,13 @@ public class UI : MonoBehaviour {
 
     public Text generateButton;
     public Text playButton;
+
+    public Text growth;
     public Text speed;
     public Text step;
 
     private void Update () {
+        growth.text = Simulation.Parameters.SUGAR_GROWTH_RATE.ToString();
         speed.text = State.STEPS_PER_SECOND.ToString();
         step.text = "Step: " + Simulation.CURRENT_STEP.ToString();
     }
@@ -24,6 +27,14 @@ public class UI : MonoBehaviour {
         State.PAUSED = true;
         Simulation.Init();
         Simulation.Render();
+    }
+
+    public void LessButtonClicked () {
+        Simulation.Parameters.SUGAR_GROWTH_RATE = Mathf.Clamp(--Simulation.Parameters.SUGAR_GROWTH_RATE, 1, 4);
+    }
+
+    public void MoreButtonClicked () {
+        Simulation.Parameters.SUGAR_GROWTH_RATE = Mathf.Clamp(++Simulation.Parameters.SUGAR_GROWTH_RATE, 1, 4);
     }
 
     public void PlayButtonClicked () {

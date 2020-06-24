@@ -1,13 +1,11 @@
 ﻿
 using System.Collections.Generic;
 
-using UnityEngine;
-
 public class Simulation {
 
     public static class Parameters {
-        public static int NUMBER_OF_AGENTS = 400;
         public static int SUGAR_GROWTH_RATE = 1;
+        public static int NUMBER_OF_AGENTS = 400;
         public static class Endowment {
             public static int MIN = 50;
             public static int MAX = 100;
