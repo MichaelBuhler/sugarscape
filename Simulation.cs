@@ -57,12 +57,17 @@ public class Simulation {
         InitAgents();
     }
 
-    public static void Step () {
-        foreach ( Agent agent in Utils.Shuffle(agents.FindAll(x => x.isAlive))) {
+    public static bool Step () {
+        List<Agent> liveAgents = agents.FindAll(x => x.isAlive);
+        if ( liveAgents.Count == 0 ) {
+            return false;
+        }
+        foreach ( Agent agent in Utils.Shuffle(liveAgents)) {
             agent.Step();
         }
         environment.Step();
         CURRENT_STEP++;
+        return true;
     }
 
     public static void Render () {

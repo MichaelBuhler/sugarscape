@@ -68,13 +68,13 @@ public class Agent {
         Move();
         Harvest();
         Eat();
-        if ( isFertile ) {
-            Reproduce();
-        }
         if ( sugar < 0 || age == maximumAge ) {
             Die();
-        } else {
-            Age();
+            return;
+        }
+        Age();
+        if ( isFertile ) {
+            Reproduce();
         }
     }
 

@@ -23,6 +23,10 @@ public class UI : MonoBehaviour {
         growth.text = Simulation.Parameters.SUGAR_GROWTH_RATE.ToString();
         speed.text = State.STEPS_PER_SECOND.ToString();
         step.text = "Step: " + Simulation.CURRENT_STEP.ToString();
+        if ( State.DONE ) {
+            playButton.transform.parent.GetComponent<Button>().interactable = false;
+            playButton.text = "Done";
+        }
     }
 
     public void ColorsDefaultToggled (bool value) {
@@ -68,8 +72,10 @@ public class UI : MonoBehaviour {
 
     public void GenerateButtonClicked () {
         generateButton.text = "Generate";
+        playButton.transform.parent.GetComponent<Button>().interactable = true;
         playButton.text = "Play";
         State.PAUSED = true;
+        State.DONE = false;
         Simulation.Init();
         Simulation.Render();
     }

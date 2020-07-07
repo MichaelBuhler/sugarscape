@@ -9,14 +9,16 @@ public class Main : MonoBehaviour {
     }
 
     private void Update () {
-        if ( State.PAUSED ) {
+        if ( State.PAUSED || State.DONE ) {
             return;
         }
         State.DELTA_TIME += Time.deltaTime;
         float secondsPerStep = 1.0f / State.STEPS_PER_SECOND;
         for ( int i = (int) ( State.DELTA_TIME / secondsPerStep ) ; i > 0 ; i-- ) {
             State.DELTA_TIME -= secondsPerStep;
-            Simulation.Step();
+            if ( !Simulation.Step() ) {
+                State.DONE = true;
+            }
             Simulation.Render();
         }
     }
