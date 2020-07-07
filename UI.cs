@@ -13,6 +13,8 @@ public class UI : MonoBehaviour {
 
     public InputField endowmentMaxField;
     public InputField endowmentMinField;
+    public InputField metabolismMaxField;
+    public InputField metabolismMinField;
     public InputField numberField;
     public InputField visionMaxField;
     public InputField visionMinField;
@@ -74,6 +76,29 @@ public class UI : MonoBehaviour {
 
     public void LessButtonClicked () {
         Simulation.Parameters.SUGAR_GROWTH_RATE = Mathf.Clamp(--Simulation.Parameters.SUGAR_GROWTH_RATE, 1, 4);
+    }
+
+    public void MetabolismMaxUnfocused (string value) {
+        if ( value.Length > 0 ) {
+            int num = Mathf.Max(Simulation.Parameters.Metabolism.MIN, int.Parse(value));
+            Simulation.Parameters.Metabolism.MAX = num;
+            metabolismMaxField.text = num.ToString();
+        } else {
+            int num = Simulation.Parameters.Metabolism.MIN;
+            Simulation.Parameters.Metabolism.MAX = num;
+            metabolismMaxField.text = num.ToString();
+        }
+    }
+
+    public void MetabolismMinUnfocused (string value) {
+        if ( value.Length > 0 ) {
+            int num = Mathf.Clamp(int.Parse(value), 0, Simulation.Parameters.Metabolism.MAX);
+            Simulation.Parameters.Metabolism.MIN = num;
+            metabolismMinField.text = num.ToString();
+        } else {
+            Simulation.Parameters.Metabolism.MIN = 0;
+            metabolismMinField.text = "0";
+        }
     }
 
     public void MoreButtonClicked () {
