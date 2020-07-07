@@ -11,6 +11,8 @@ public class UI : MonoBehaviour {
     public Text speed;
     public Text step;
 
+    public InputField endowmentMaxField;
+    public InputField endowmentMinField;
     public InputField numberField;
 
     private void Update () {
@@ -30,6 +32,29 @@ public class UI : MonoBehaviour {
         if ( value ) {
             State.COLORING_OPTION = State.ColoringOptions.BY_SEX;
             Simulation.Render();
+        }
+    }
+
+    public void EndowmentMaxUnfocused (string value) {
+        if ( value.Length > 0 ) {
+            int num = Mathf.Max(Simulation.Parameters.Endowment.MIN, int.Parse(value));
+            Simulation.Parameters.Endowment.MAX = num;
+            endowmentMaxField.text = num.ToString();
+        } else {
+            int num = Simulation.Parameters.Endowment.MIN;
+            Simulation.Parameters.Endowment.MAX = num;
+            endowmentMaxField.text = num.ToString();
+        }
+    }
+
+    public void EndowmentMinUnfocused (string value) {
+        if ( value.Length > 0 ) {
+            int num = Mathf.Clamp(int.Parse(value), 0, Simulation.Parameters.Endowment.MAX);
+            Simulation.Parameters.Endowment.MIN = num;
+            endowmentMinField.text = num.ToString();
+        } else {
+            Simulation.Parameters.Endowment.MIN = 0;
+            endowmentMinField.text = "0";
         }
     }
 
@@ -55,27 +80,14 @@ public class UI : MonoBehaviour {
 
     public void NumberFieldChanged (string value) {
         if ( value.Length > 0 ) {
-            int num = int.Parse(value);
-            if ( num < 0 ) {
-                num = 0;
-            } else if ( num > 1000 ) {
-                num = 1000;
-            }
-            Simulation.Parameters.INITIAL_NUMBER_OF_AGENTS = num;
+            int num = Mathf.Min(int.Parse(value), 1000);
             numberField.text = num.ToString();
-        } else {
-            Simulation.Parameters.INITIAL_NUMBER_OF_AGENTS = 0;
         }
     }
 
     public void NumberFieldUnfocused (string value) {
         if ( value.Length > 0 ) {
-            int num = int.Parse(value);
-            if ( num < 0 ) {
-                num = 0;
-            } else if ( num > 1000 ) {
-                num = 1000;
-            }
+            int num = Mathf.Clamp(int.Parse(value), 0, 1000);
             Simulation.Parameters.INITIAL_NUMBER_OF_AGENTS = num;
             numberField.text = num.ToString();
         } else {
