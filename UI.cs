@@ -14,6 +14,8 @@ public class UI : MonoBehaviour {
     public InputField endowmentMaxField;
     public InputField endowmentMinField;
     public InputField numberField;
+    public InputField visionMaxField;
+    public InputField visionMinField;
 
     private void Update () {
         growth.text = Simulation.Parameters.SUGAR_GROWTH_RATE.ToString();
@@ -112,6 +114,29 @@ public class UI : MonoBehaviour {
 
     public void SlowerButtonClicked () {
         State.STEPS_PER_SECOND = Mathf.Clamp(--State.STEPS_PER_SECOND, 1, 30);
+    }
+
+    public void VisionMaxUnfocused (string value) {
+        if ( value.Length > 0 ) {
+            int num = Mathf.Clamp(int.Parse(value), Simulation.Parameters.Vision.MIN, 50);
+            Simulation.Parameters.Vision.MAX = num;
+            visionMaxField.text = num.ToString();
+        } else {
+            int num = Simulation.Parameters.Vision.MIN;
+            Simulation.Parameters.Vision.MAX = num;
+            visionMaxField.text = num.ToString();
+        }
+    }
+
+    public void VisionMinUnfocused (string value) {
+        if ( value.Length > 0 ) {
+            int num = Mathf.Clamp(int.Parse(value), 0, Simulation.Parameters.Vision.MAX);
+            Simulation.Parameters.Vision.MIN = num;
+            visionMinField.text = num.ToString();
+        } else {
+            Simulation.Parameters.Vision.MIN = 0;
+            visionMinField.text = "0";
+        }
     }
 
 }
