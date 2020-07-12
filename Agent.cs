@@ -125,19 +125,30 @@ public class Agent {
     }
 
     private void Move () {
-        Location next = location;
+        switch ( Simulation.Parameters.MOVEMENT_STRATEGY ) {
+            case Simulation.MovementStrategies.CLASSIC:
+                {
+                    Location next = location;
 
-        foreach ( List<Location> locationsInDirection in Utils.Shuffle(location.GetAllLocationsInSight(vision)) ) {
-            foreach ( Location potential in locationsInDirection ) {
-                if ( potential.agent == null && potential.sugar > next.sugar ) {
-                    next = potential;
+                    foreach ( List<Location> locationsInDirection in Utils.Shuffle(location.GetAllLocationsInSight(vision)) ) {
+                        foreach ( Location potential in locationsInDirection ) {
+                            if ( potential.agent == null && potential.sugar > next.sugar ) {
+                                next = potential;
+                            }
+                        }
+                    }
+
+                    location.agent = null;
+                    location = next;
+                    location.agent = this;
                 }
-            }
-        }
+                break;
+            case Simulation.MovementStrategies.CUSTOM:
+                {
 
-        location.agent = null;
-        location = next;
-        location.agent = this;
+                }
+                break;
+        }
     }
 
     private void Harvest () {

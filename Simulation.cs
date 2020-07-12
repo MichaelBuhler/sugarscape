@@ -3,6 +3,11 @@ using System.Collections.Generic;
 
 public class Simulation {
 
+    public enum MovementStrategies {
+        CLASSIC,
+        CUSTOM
+    }
+
     public static class Parameters {
         public static int SUGAR_GROWTH_RATE = 1;
         public static int INITIAL_NUMBER_OF_AGENTS = 400;
@@ -44,6 +49,7 @@ public class Simulation {
                 }
             }
         }
+        public static MovementStrategies MOVEMENT_STRATEGY = MovementStrategies.CLASSIC;
     }
 
     public static int CURRENT_STEP { get; private set; } = 0;
