@@ -130,6 +130,18 @@ public class UI : MonoBehaviour {
         Simulation.Parameters.SUGAR_GROWTH_RATE = Mathf.Clamp(++Simulation.Parameters.SUGAR_GROWTH_RATE, 1, 4);
     }
 
+    public void MovementClassicToggled (bool value) {
+        if ( value ) {
+            Simulation.Parameters.MOVEMENT_STRATEGY = Simulation.MovementStrategies.CLASSIC;
+        }
+    }
+
+    public void MovementCustomToggled (bool value) {
+        if ( value ) {
+            Simulation.Parameters.MOVEMENT_STRATEGY = Simulation.MovementStrategies.CUSTOM;
+        }
+    }
+
     public void NumberFieldChanged (string value) {
         if ( value.Length > 0 ) {
             int num = Mathf.Min(int.Parse(value), 1000);
