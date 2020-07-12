@@ -7,6 +7,7 @@ public class UI : MonoBehaviour {
     public Text generateButton;
     public Text playButton;
 
+    public Text colorsDescription;
     public Text growth;
     public Text speed;
     public Text step;
@@ -32,6 +33,7 @@ public class UI : MonoBehaviour {
     public void ColorsDefaultToggled (bool value) {
         if ( value ) {
             State.COLORING_OPTION = State.ColoringOptions.DEFAULT;
+            colorsDescription.text = "all agents are colored red";
             Simulation.Render();
         }
     }
@@ -39,6 +41,7 @@ public class UI : MonoBehaviour {
     public void ColorsSexToggled (bool value) {
         if ( value ) {
             State.COLORING_OPTION = State.ColoringOptions.BY_SEX;
+            colorsDescription.text = "males are red, females are blue";
             Simulation.Render();
         }
     }
