@@ -3,6 +3,7 @@ public class State {
 
     public enum ColoringOptions {
         DEFAULT,
+        BY_METABOLISM,
         BY_SEX,
         BY_VISION
     }

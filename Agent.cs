@@ -101,6 +101,20 @@ public class Agent {
                     }
                 }
                 break;
+            case State.ColoringOptions.BY_METABOLISM:
+                {
+                    float range = Simulation.Parameters.Metabolism.MAX - Simulation.Parameters.Metabolism.MIN;
+                    float a = Simulation.Parameters.Metabolism.MIN + range * 1 / 3;
+                    float b = Simulation.Parameters.Metabolism.MIN + range * 2 / 3;
+                    if ( vision < a ) {
+                        renderer.sharedMaterial = Materials.LOW_METABOLISM;
+                    } else if ( vision < b ) {
+                        renderer.sharedMaterial = Materials.MEDIUM_METABOLISM;
+                    } else {
+                        renderer.sharedMaterial = Materials.HIGH_METABOLISM;
+                    }
+                }
+                break;
         }
     }
 

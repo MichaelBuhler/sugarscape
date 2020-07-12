@@ -38,6 +38,14 @@ public class UI : MonoBehaviour {
         }
     }
 
+    public void ColorsMetabolismToggled (bool value) {
+        if ( value ) {
+            State.COLORING_OPTION = State.ColoringOptions.BY_METABOLISM;
+            colorsDescription.text = "low is blue, medium is purple, high is red";
+            Simulation.Render();
+        }
+    }
+
     public void ColorsSexToggled (bool value) {
         if ( value ) {
             State.COLORING_OPTION = State.ColoringOptions.BY_SEX;
