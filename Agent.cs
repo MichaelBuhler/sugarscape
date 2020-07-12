@@ -128,19 +128,26 @@ public class Agent {
         switch ( Simulation.Parameters.MOVEMENT_STRATEGY ) {
             case Simulation.MovementStrategies.CLASSIC:
                 {
-                    Location next = location;
+                    List<List<Location>> allPotentialLocations = Utils.Shuffle(location.GetAllLocationsInSight(vision));
 
-                    foreach ( List<Location> locationsInDirection in Utils.Shuffle(location.GetAllLocationsInSight(vision)) ) {
-                        foreach ( Location potential in locationsInDirection ) {
-                            if ( potential.agent == null && potential.sugar > next.sugar ) {
-                                next = potential;
+                    Location nextLocation = null;
+                    for ( int i = 0 ; i < vision ; i++ ) {
+                        for ( int j = 0 ; j < 4 ; j++ ) {
+                            Location potentialLocation = allPotentialLocations[j][i];
+                            if ( potentialLocation.agent != null ) {
+                                continue;
+                            }
+                            if ( nextLocation == null || potentialLocation.sugar > nextLocation.sugar ) {
+                                nextLocation = potentialLocation;
                             }
                         }
                     }
 
-                    location.agent = null;
-                    location = next;
-                    location.agent = this;
+                    if ( nextLocation != null ) {
+                        location.agent = null;
+                        location = nextLocation;
+                        location.agent = this;
+                    }
                 }
                 break;
             case Simulation.MovementStrategies.CUSTOM:
