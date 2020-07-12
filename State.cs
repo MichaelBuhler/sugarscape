@@ -3,7 +3,8 @@ public class State {
 
     public enum ColoringOptions {
         DEFAULT,
-        BY_SEX
+        BY_SEX,
+        BY_VISION
     }
 
     public static float DELTA_TIME = 0;

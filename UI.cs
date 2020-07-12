@@ -46,6 +46,14 @@ public class UI : MonoBehaviour {
         }
     }
 
+    public void ColorsVisionToggled (bool value) {
+        if ( value ) {
+            State.COLORING_OPTION = State.ColoringOptions.BY_VISION;
+            colorsDescription.text = "low is red, medium is purple, high is blue";
+            Simulation.Render();
+        }
+    }
+
     public void EndowmentMaxUnfocused (string value) {
         if ( value.Length > 0 ) {
             int num = Mathf.Max(Simulation.Parameters.Endowment.MIN, int.Parse(value));

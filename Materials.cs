@@ -12,6 +12,10 @@ public class Materials {
     public static readonly Material MALE;
     public static readonly Material FEMALE;
 
+    public static readonly Material LOW_VISION;
+    public static readonly Material MEDIUM_VISION;
+    public static readonly Material HIGH_VISION;
+
     static Materials () {
         GROUND = new Material(Shaders.Legacy.DIFFUSE) {
             color = Color.white
@@ -29,6 +33,16 @@ public class Materials {
             color = Color.red
         };
         FEMALE = new Material(Shaders.Legacy.DIFFUSE) {
+            color = Color.blue
+        };
+
+        LOW_VISION = new Material(Shaders.Legacy.DIFFUSE) {
+            color = Color.red
+        };
+        MEDIUM_VISION = new Material(Shaders.Legacy.DIFFUSE) {
+            color = new Color(0.5f, 0, 0.5f, 1) // purple
+        };
+        HIGH_VISION = new Material(Shaders.Legacy.DIFFUSE) {
             color = Color.blue
         };
     }

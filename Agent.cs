@@ -87,6 +87,20 @@ public class Agent {
             case State.ColoringOptions.BY_SEX:
                 renderer.sharedMaterial = sex == Sex.MALE ? Materials.MALE : Materials.FEMALE;
                 break;
+            case State.ColoringOptions.BY_VISION:
+                {
+                    float range = Simulation.Parameters.Vision.MAX - Simulation.Parameters.Vision.MIN;
+                    float a = Simulation.Parameters.Vision.MIN + range * 1 / 3;
+                    float b = Simulation.Parameters.Vision.MIN + range * 2 / 3;
+                    if ( vision < a ) {
+                        renderer.sharedMaterial = Materials.LOW_VISION;
+                    } else if ( vision < b ) {
+                        renderer.sharedMaterial = Materials.MEDIUM_VISION;
+                    } else {
+                        renderer.sharedMaterial = Materials.HIGH_VISION;
+                    }
+                }
+                break;
         }
     }
 
