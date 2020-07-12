@@ -174,6 +174,7 @@ public class Agent {
 
     private void Die () {
         isAlive = false;
+        location.agent = null;
         Object.Destroy(gameObject);
     }
 
