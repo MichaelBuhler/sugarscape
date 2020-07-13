@@ -89,12 +89,11 @@ public class Agent {
                 break;
             case State.ColoringOptions.BY_VISION:
                 {
-                    float range = Simulation.Parameters.Vision.MAX - Simulation.Parameters.Vision.MIN;
-                    float a = Simulation.Parameters.Vision.MIN + range * 1 / 3;
-                    float b = Simulation.Parameters.Vision.MIN + range * 2 / 3;
-                    if ( vision < a ) {
+                    float firstTercile = Utils.GetFirstTercile(Simulation.Parameters.Vision.MIN, Simulation.Parameters.Vision.MAX);
+                    float secondTercile = Utils.GetSecondTercile(Simulation.Parameters.Vision.MIN, Simulation.Parameters.Vision.MAX);
+                    if ( vision < firstTercile ) {
                         renderer.sharedMaterial = Materials.LOW_VISION;
-                    } else if ( vision <= b ) {
+                    } else if ( vision <= secondTercile ) {
                         renderer.sharedMaterial = Materials.MEDIUM_VISION;
                     } else {
                         renderer.sharedMaterial = Materials.HIGH_VISION;
@@ -103,12 +102,11 @@ public class Agent {
                 break;
             case State.ColoringOptions.BY_METABOLISM:
                 {
-                    float range = Simulation.Parameters.Metabolism.MAX - Simulation.Parameters.Metabolism.MIN;
-                    float a = Simulation.Parameters.Metabolism.MIN + range * 1 / 3;
-                    float b = Simulation.Parameters.Metabolism.MIN + range * 2 / 3;
-                    if ( metabolism < a ) {
+                    float firstTercile = Utils.GetFirstTercile(Simulation.Parameters.Metabolism.MIN, Simulation.Parameters.Metabolism.MAX);
+                    float secondTercile = Utils.GetSecondTercile(Simulation.Parameters.Metabolism.MIN, Simulation.Parameters.Metabolism.MAX);
+                    if ( metabolism < firstTercile ) {
                         renderer.sharedMaterial = Materials.LOW_METABOLISM;
-                    } else if ( metabolism <= b ) {
+                    } else if ( metabolism <= secondTercile ) {
                         renderer.sharedMaterial = Materials.MEDIUM_METABOLISM;
                     } else {
                         renderer.sharedMaterial = Materials.HIGH_METABOLISM;

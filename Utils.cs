@@ -84,4 +84,12 @@ public class Utils {
         return shuffled;
     }
 
+    public static float GetFirstTercile (int min, int max) {
+        return min + (max - min) / 3f;
+    }
+
+    public static float GetSecondTercile (int min, int max) {
+        return min + (max - min) / 3f * 2;
+    }
+
 }
