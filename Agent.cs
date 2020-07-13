@@ -150,7 +150,40 @@ public class Agent {
                 break;
             case Simulation.MovementStrategies.CUSTOM:
                 {
-
+                    if ( isFertile ) {
+                        for ( int i = 0 ; i < vision ; i++ ) {
+                            for ( int j = 0 ; j < 4 ; j++ ) {
+                                if ( i == 0 ) {
+                                    potentialLocation = location;
+                                } else {
+                                    potentialLocation = allPotentialLocations[j][0];
+                                    if ( potentialLocation.agent != null ) {
+                                        continue;
+                                    }
+                                }
+                                Agent potentialMate = allPotentialLocations[j][i].agent;
+                                if ( potentialMate != null && potentialMate.sex != sex && potentialMate.isFertile ) {
+                                    nextLocation = potentialLocation;
+                                    j = 4;
+                                    i = vision;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    if ( nextLocation == null ) {
+                        for ( int i = 0 ; i < 4 ; i++ ) {
+                            potentialLocation = allPotentialLocations[i][0];
+                            if ( potentialLocation.agent != null ) {
+                                continue;
+                            }
+                            potentialSugar = allPotentialLocations[i].Select(x => x.sugar).Sum();
+                            if ( nextLocation == null || potentialSugar > nextSugar ) {
+                                nextSugar = potentialSugar;
+                                nextLocation = potentialLocation;
+                            }
+                        }
+                    }
                 }
                 break;
         }
