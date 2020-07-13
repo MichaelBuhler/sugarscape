@@ -94,7 +94,7 @@ public class Agent {
                     float b = Simulation.Parameters.Vision.MIN + range * 2 / 3;
                     if ( vision < a ) {
                         renderer.sharedMaterial = Materials.LOW_VISION;
-                    } else if ( vision < b ) {
+                    } else if ( vision <= b ) {
                         renderer.sharedMaterial = Materials.MEDIUM_VISION;
                     } else {
                         renderer.sharedMaterial = Materials.HIGH_VISION;
@@ -106,9 +106,9 @@ public class Agent {
                     float range = Simulation.Parameters.Metabolism.MAX - Simulation.Parameters.Metabolism.MIN;
                     float a = Simulation.Parameters.Metabolism.MIN + range * 1 / 3;
                     float b = Simulation.Parameters.Metabolism.MIN + range * 2 / 3;
-                    if ( vision < a ) {
+                    if ( metabolism < a ) {
                         renderer.sharedMaterial = Materials.LOW_METABOLISM;
-                    } else if ( vision < b ) {
+                    } else if ( metabolism <= b ) {
                         renderer.sharedMaterial = Materials.MEDIUM_METABOLISM;
                     } else {
                         renderer.sharedMaterial = Materials.HIGH_METABOLISM;
