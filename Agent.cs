@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using System.Linq;
 
 using UnityEngine;
 
@@ -123,28 +124,27 @@ public class Agent {
     }
 
     private void Move () {
+        int nextSugar = -1;
+        int potentialSugar = -1;
+        Location nextLocation = null;
+        Location potentialLocation = null;
+        List<List<Location>> allPotentialLocations = Utils.Shuffle(location.GetAllLocationsInSight(vision));
+
         switch ( Simulation.Parameters.MOVEMENT_STRATEGY ) {
             case Simulation.MovementStrategies.CLASSIC:
                 {
-                    List<List<Location>> allPotentialLocations = Utils.Shuffle(location.GetAllLocationsInSight(vision));
-
-                    Location nextLocation = null;
                     for ( int i = 0 ; i < vision ; i++ ) {
                         for ( int j = 0 ; j < 4 ; j++ ) {
-                            Location potentialLocation = allPotentialLocations[j][i];
+                            potentialLocation = allPotentialLocations[j][i];
                             if ( potentialLocation.agent != null ) {
                                 continue;
                             }
-                            if ( nextLocation == null || potentialLocation.sugar > nextLocation.sugar ) {
+                            potentialSugar = potentialLocation.sugar;
+                            if ( nextLocation == null || potentialSugar > nextSugar ) {
+                                nextSugar = potentialSugar;
                                 nextLocation = potentialLocation;
                             }
                         }
-                    }
-
-                    if ( nextLocation != null ) {
-                        location.agent = null;
-                        location = nextLocation;
-                        location.agent = this;
                     }
                 }
                 break;
@@ -153,6 +153,12 @@ public class Agent {
 
                 }
                 break;
+        }
+
+        if ( nextLocation != null ) {
+            location.agent = null;
+            location = nextLocation;
+            location.agent = this;
         }
     }
 
