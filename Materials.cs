@@ -21,42 +21,42 @@ public class Materials {
     public static readonly Material HIGH_VISION;
 
     static Materials () {
-        GROUND = new Material(Shaders.Legacy.DIFFUSE) {
+        GROUND = new Material(Shaders.Legacy.SIMPLE_LIT) {
             color = Color.white
         };
 
-        SUGAR = new Material(Shaders.Legacy.DIFFUSE) {
+        SUGAR = new Material(Shaders.Legacy.SIMPLE_LIT) {
             color = Color.yellow
         };
 
-        DEFAULT = new Material(Shaders.Legacy.DIFFUSE) {
+        DEFAULT = new Material(Shaders.Legacy.SIMPLE_LIT) {
             color = Color.red
         };
 
-        MALE = new Material(Shaders.Legacy.DIFFUSE) {
+        MALE = new Material(Shaders.Legacy.SIMPLE_LIT) {
             color = Color.red
         };
-        FEMALE = new Material(Shaders.Legacy.DIFFUSE) {
+        FEMALE = new Material(Shaders.Legacy.SIMPLE_LIT) {
             color = Color.blue
         };
 
-        LOW_VISION = new Material(Shaders.Legacy.DIFFUSE) {
+        LOW_VISION = new Material(Shaders.Legacy.SIMPLE_LIT) {
             color = Color.red
         };
-        MEDIUM_VISION = new Material(Shaders.Legacy.DIFFUSE) {
+        MEDIUM_VISION = new Material(Shaders.Legacy.SIMPLE_LIT) {
             color = new Color(0.5f, 0, 0.5f, 1) // purple
         };
-        HIGH_VISION = new Material(Shaders.Legacy.DIFFUSE) {
+        HIGH_VISION = new Material(Shaders.Legacy.SIMPLE_LIT) {
             color = Color.blue
         };
 
-        LOW_METABOLISM = new Material(Shaders.Legacy.DIFFUSE) {
+        LOW_METABOLISM = new Material(Shaders.Legacy.SIMPLE_LIT) {
             color = Color.blue
         };
-        MEDIUM_METABOLISM = new Material(Shaders.Legacy.DIFFUSE) {
+        MEDIUM_METABOLISM = new Material(Shaders.Legacy.SIMPLE_LIT) {
             color = new Color(0.5f, 0, 0.5f, 1) // purple
         };
-        HIGH_METABOLISM = new Material(Shaders.Legacy.DIFFUSE) {
+        HIGH_METABOLISM = new Material(Shaders.Legacy.SIMPLE_LIT) {
             color = Color.red
         };
     }
